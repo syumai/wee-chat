@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" @click="update">
+  <div class="wrapper">
     <list class="list">
       <cell class="cell" v-for="msg in messages" :key="msg.key">
         <message :body="msg.body" :name="msg.name" :mine="userName === msg.name"/>

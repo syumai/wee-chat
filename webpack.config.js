@@ -85,11 +85,11 @@ function getBaseConfig () {
   }
 }
 
-var webConfig = getBaseConfig()
+const webConfig = getBaseConfig()
 webConfig.output.filename = '[name].web.js'
 webConfig.module.loaders[1].loaders.push('vue')
 
-var weexConfig = getBaseConfig()
+const weexConfig = getBaseConfig()
 weexConfig.output.filename = '[name].weex.js'
 weexConfig.module.loaders[1].loaders.push('weex')
 
