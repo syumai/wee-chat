@@ -1,6 +1,6 @@
 <template>
-  <div class="message">
-    <text :class="classNames">{{name}}: {{body}}</text>
+  <div :class="messageClassNames">
+    <text :class="bodyClassNames">{{nameWithSuffix}}{{body}}</text>
   </div>
 </template>
 
@@ -8,26 +8,47 @@
 export default {
   props: ['body', 'name', 'mine'],
   computed: {
-    classNames() {
+    messageClassNames() {
+      let classBase = 'message';
+      if (this.mine) {
+        classBase += '-mine';
+      }
+      return [classBase];
+    },
+    bodyClassNames() {
       let classBase = 'body';
       if (this.mine) {
         classBase += '-mine';
       }
       return [classBase];
+    },
+    nameWithSuffix() {
+      if (this.mine) {
+        return '';
+      } else {
+        return `${this.name}: `;
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.message {
+.message, .message-mine {
   padding: 16px;
   flex-direction: row;
-  justify-content: flex-start;
   background-color: #fff;
 }
 
-.body {
+.message {
+  justify-content: flex-start;
+}
+
+.message-mine {
+  justify-content: flex-end;
+}
+
+.body, .body-mine {
   padding: 20px;
   border-radius: 12px;
   color: #333;
@@ -37,11 +58,6 @@ export default {
 }
 
 .body-mine {
-  padding: 20px;
-  border-radius: 12px;
-  color: #333;
-  border-width: 2px;
-  border-style: solid;
   background-color: #dfd;
 }
 </style>

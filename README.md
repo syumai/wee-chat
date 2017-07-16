@@ -18,6 +18,7 @@ npm run serve
 
 * Then, scan QR code on your [Weex playground](https://weex.incubator.apache.org/playground.html)
 * This app worked on my Android phones (local area network only)
+  - receiving message not working on iOS (only sending works)
 
 ## File structure
 

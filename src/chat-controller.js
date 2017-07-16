@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 
-const wsURL = `ws://${process.env.WEBSOCKET_HOST}:8181`;
+const wsURL = `ws://${WEBSOCKET_HOST}:8181`;
 
 class ChatController extends EventEmitter {
   constructor({ socket } = {}) {
@@ -23,10 +23,12 @@ class ChatController extends EventEmitter {
   }
 
   send(message) {
-    this.socket.send(JSON.stringify({
+    const data = JSON.stringify({
       name: this.name,
       message,
-    }));
+    });
+    console.log(data);
+    this.socket.send(data);
   }
 
   receiveString(str) {
@@ -43,8 +45,8 @@ class ChatController extends EventEmitter {
   openSocket() {
     this.socket.WebSocket(wsURL, 'echo-protocol');
     this.socket.onmessage = ({ data }) => this.receive(data);
-    // this.socket.onopen = (msg) => this.receiveString(msg);
-    // this.socket.onerror = (msg) => this.receiveString(msg);
+    this.socket.onopen = (options) => console.log('opened connection');
+    this.socket.onerror = ({ data }) => console.error(data);
   }
 
   closeSocket() {

@@ -34,7 +34,14 @@ wsServer.on('request', (request) => {
 
   const connection = request.accept('echo-protocol', request.origin);
   connections.push(connection);
+  for (const _connection of connections) {
+    _connection.sendUTF(JSON.stringify({
+      name: "Server",
+      message: "Joined new User"
+    }))
+  }
   console.log((new Date()) + ' Connection accepted.');
+  console.log(`Currently connecting ${connections.length} users.`);
   connection.on('message', (message) => {
     if (message.type === 'utf8') {
       console.log('Received Message: ' + message.utf8Data);

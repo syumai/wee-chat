@@ -27,13 +27,7 @@ let id = 0;
 export default {
   data: {
     userName,
-    messages: [
-      {
-        key: id++,
-        body: 'Hello!',
-        name: 'System'
-      },
-    ],
+    messages: [],
     msgText: ''
   },
   components: { Message },
@@ -49,22 +43,16 @@ export default {
         this.msgText = '';
       }
     },
-    receive(data) {
-      if (typeof data === 'string') {
+    receive({
+      name = 'No name',
+      message = ''
+    } = {}) {
+      if (name !== chatController.name) {
         this.messages.push({
           key: id++,
-          body: data.toString(),
-          name: 'System'
+          body: message,
+          name
         });
-      } else {
-        const { name, message } = data;
-        if (name !== chatController.name) {
-          this.messages.push({
-            key: id++,
-            body: message,
-            name
-          });
-        }
       }
     }
   },
